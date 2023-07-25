@@ -1,12 +1,17 @@
-{% load static %}
 {% extends "HomePage.html" %}
+{% load static %}
+<head>
+    
+    <title>TUMS Cafe</title>
+</head>
 {% block content %}
+
 <h1>Hello world</h1>
     {% for Product in product_list %}
-        <div class="Product">
-                 <h1> {{Product.Name}} </h1>
-                <img src="{{Product.photo.url}}" width="30%" height="30%">
-                 <p> {{Product.Price}} </p>
+        <div class="Product" style="background: url({{Product.photo.url}}); background-size: cover;">
+                 <h1 class="name"> {{Product.Name}} </h1>
+                <!-- <img src="{{Product.photo.url}}" width="30%" height="30%"> -->
+                 <p class="price"> {{Product.Price}} T</p>
         </div>
     {% endfor %}
-{% endblock content %}
+{% endblock content %}‹

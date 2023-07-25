@@ -1,0 +1,54 @@
+.Product {
+    width: 22vw;
+    height: 22vw;
+    margin-left: 1%;
+    margin-bottom: 30px;
+    /* background-color: #E5FF74; */
+    border-radius: 20px;
+    padding-top: 0px; 
+    display: inline-block;
+    overflow: hidden;
+    transition: transform 0.3s ,margin-top 0.3s ;
+
+}
+.Product:hover {
+    background-color: rgb(68, 68, 68);
+    opacity: 75%;
+    border-color: aqua;
+    border-width: 2px;
+    border-style:solid ;
+    transform: scale(1.03);
+    backdrop-filter: blur(10px);
+    
+}
+
+
+.Product:hover .name{
+    color: aqua;
+    margin-top: 5%;
+    
+}
+
+.Product:hover .price{
+    color: aqua;
+    
+}
+
+.price {
+   color: aliceblue;
+   margin-left: 15px; 
+   margin-top: 0px;
+   margin-bottom: 20px;
+}
+
+
+.name {
+    color: white;
+    font-size: 40;
+    margin-top: 75%;
+    margin-left: 15px; 
+    margin-bottom: 0px;
+    transition: transform 0.3s ,margin-top 0.3s ;
+
+}
+
