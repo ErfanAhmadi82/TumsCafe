@@ -2,11 +2,14 @@
 <head>
     <title>TUMS Cafe</title>
     <link rel="stylesheet" href="{% static 'CSS/HomePage.css' %}">
+    <link rel="script" href="{% static 'JS/HomePage.js' %}">
 </head>
 
 <body>
+    <h1 id="test"></h1>
  <div>
     {% block content %}
     {% endblock content %} 
- </div>    
+ </div> 
+ <script type="text/javascript" src="{% static 'JS/HomePage.js' %}"></script>   
 </body>

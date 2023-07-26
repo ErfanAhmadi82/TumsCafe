@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView, ListView
 from .models import Product
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 class HomePage(TemplateView):
@@ -14,3 +15,4 @@ class Products_View(ListView):
     #     print("CONTEXT:", context)
     #     return context
     
+
