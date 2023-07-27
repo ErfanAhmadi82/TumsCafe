@@ -6,7 +6,7 @@ from datetime import datetime
 
 class Product(models.Model):
     Name = models.CharField(max_length=255)
-    Price = models.BigIntegerField(max_length=255)
+    Price = models.BigIntegerField()
     photo = models.ImageField(upload_to="media", max_length=100, height_field=None, width_field=None)
     def __str__(self) -> str:
         return self.Name
@@ -15,12 +15,23 @@ class Product(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=datetime.now)
-
-
+    def cart_price(self):
+            price = 0
+            for cart_item in CartItem.objects.filter(cart=self):
+                price += cart_item.item_over_all_price()
+            return price
+    def cart_objects(self):
+         cart_objects_list = list()
+         for cart_item in CartItem.objects.filter(cart=self):
+              cart_objects_list.append(cart_item)
+         return cart_objects_list
 class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-    # ItemOverAllPrice = product * quantity
+    # ItemOverAllPrice = item.product.Price * quantity
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     def __str__(self) -> str:
         return self.product.Name + "*" + str(self.quantity)
+    def item_over_all_price(self):
+        return self.product.Price * self.quantity
+    
