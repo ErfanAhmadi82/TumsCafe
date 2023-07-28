@@ -7,3 +7,4 @@ class CartAdmin(admin.ModelAdmin):
     list_display = ["user", "created_at", "cart_price", "cart_objects"]
     readonly_fields = ["cart_objects", "cart_price"]
 admin.site.register(Cart,CartAdmin)
+#FreeCodeCamp
