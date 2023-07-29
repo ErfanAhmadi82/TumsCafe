@@ -8,6 +8,7 @@
 
 {% block content %}
     {% for Type in type_list %}
+    
         <div class = "Menu" id = "{{Type.Name}}">
             {% for object in Type.type_objects %}
                 <div class="Product" id = "{{ object.Name }}" style="background: url({{object.photo.url}}); background-size: cover;">

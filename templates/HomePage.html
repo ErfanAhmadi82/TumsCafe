@@ -1,4 +1,5 @@
 {% load static %}
+
 <head>
     <title>TUMS Cafe</title>
     <link rel="stylesheet" href="{% static 'CSS/HomePage.css' %}">
@@ -6,10 +7,24 @@
 </head>
 
 <body>
-    <h1 id="test"></h1>
- <div>
+    <div id="signup">
+        <form action="/submit/user/" method="get">
+            <input type="text" id="username" name="username" placeholder="Enter your username"  required>
+            <input type="password" id="password" name="password" placeholder="Enter your password"  required>
+            <input type="email" id="email" name="email" placeholder="Enter your email"  required>
+            <input type="submit">
+        
+        
+        </form>
+        </div>
+<div id="whole">
+    <div id="control">
+        <img src="/media/media/signup-icon-13.png" onclick="signup()">
+    </div>
+ <div id="conteiner" onclick="getback()">
     {% block content %}
     {% endblock content %} 
  </div> 
+</div>
  <script type="text/javascript" src="{% static 'JS/HomePage.js' %}"></script>   
 </body>
