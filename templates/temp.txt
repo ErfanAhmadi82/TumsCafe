@@ -1,0 +1,27 @@
+
+{% block content %}
+
+<div class="Menu" id>
+    {% for Product in product_list %}
+        <div class="Product" id = "{{ Product.Name }}" style="background: url({{Product.photo.url}}); background-size: cover;">
+                 <h1 class="name"> {{Product.Name}} </h1>
+                <img src="{{Product.photo.url}}" width="30%" height="30%">
+                 <p class="price"> {{Product.Price}} T</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %} 
+
+
+
+  <div class = "Menu" id = "{{Type.Name}}">
+            {% for Product in product_list %}
+                {% if Product.Type == Type.Name %}
+                <div class="Product" id = "{{ Product.Name }}" style="background: url({{Product.photo.url}}); background-size: cover;">
+                    <h1 class="name"> {{Product.Name}} </h1>
+                <!-- <img src="{{Product.photo.url}}" width="30%" height="30%"> -->
+                    <p class="price"> {{Product.Price}} T</p>
+                </div>
+            {% endif %}
+              {% endfor %}    
+        </div>

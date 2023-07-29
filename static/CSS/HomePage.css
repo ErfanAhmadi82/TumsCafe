@@ -1,36 +1,47 @@
+body {
+    background-color: #61677A;
+}
 .Product {
     width: 22vw;
     height: 22vw;
     margin-left: 1%;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    /* margin-bottom: 30px; */
     /* background-color: #E5FF74; */
     border-radius: 20px;
     padding-top: 0px; 
     display: inline-block;
     overflow: hidden;
-    transition: transform 0.3s ,margin-top 0.3s ;
+    transition: transform 0.3s  ;
 
 }
 .Product:hover {
-    background-color: rgb(68, 68, 68);
-    opacity: 75%;
-    border-color: aqua;
+    background-color: rgb(237, 10, 10);
+    /* opacity: 75%; */
+    border-color: #61677A;
     border-width: 2px;
     border-style:solid ;
     transform: scale(1.03);
     backdrop-filter: blur(10px);
+    margin-left: 1%;
+    margin-bottom: 0px;
+    margin-top: 4px;
     
 }
 
 
 .Product:hover .name{
-    color: aqua;
+    color: #61677A;
     margin-top: 5%;
+    -webkit-text-stroke: 0.3px white;
     
 }
 
 .Product:hover .price{
-    color: aqua;
+    color: #61677A;
+    -webkit-text-stroke: 0.2px white;
+
     
 }
 
@@ -50,5 +61,21 @@
     margin-bottom: 0px;
     transition: transform 0.3s ,margin-top 0.3s ;
 
+}
+
+.Menu {
+    background-color: #D8D9DA;
+    overflow: auto;
+    white-space: nowrap;
+    height: 24vw;
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    width: 93.7%;
+    /* border-style: solid ;
+    border-color: #D8D9DA;
+    border-width: 10px; */
+    border-radius: 20px;
+    float: right;
 }
 

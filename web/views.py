@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView, ListView
-from .models import Product, User
+from .models import Product, User, Type
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import loader
@@ -9,14 +9,22 @@ from django.template import loader
 class HomePage(TemplateView):
     template_name = "HomePage.html"
 
-class Products_View(ListView):
-    model = Product
+
+ 
+    
+
+class Type_View(ListView):
+    model = Type
     template_name = "Products.html"
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
     #     print("CONTEXT:", context)
     #     return context
     
+class Products_View(ListView):
+    model = Product
+    template_name = "Products.html"
+
 @csrf_exempt
 def NewUser(request):
     this_user = request.GET["username"]

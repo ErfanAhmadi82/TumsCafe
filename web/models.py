@@ -4,12 +4,24 @@ from datetime import datetime
 # from . import views
 # Create your models here.
 
+class Type(models.Model):
+     Name = models.CharField(max_length=255,)
+     def __str__(self) -> str:
+        return self.Name
+     def type_objects(self):
+          type_objects_list = list()
+          for type_object in Product.objects.filter(Type=self):
+               type_objects_list.append(type_object)
+          return type_objects_list
+
 class Product(models.Model):
     Name = models.CharField(max_length=255)
     Price = models.BigIntegerField()
+    Type = models.ForeignKey(Type, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to="media", max_length=100, height_field=None, width_field=None)
     def __str__(self) -> str:
         return self.Name
+    
     
 
 class Cart(models.Model):

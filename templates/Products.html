@@ -4,13 +4,18 @@
     
     <title>TUMS Cafe</title>
 </head>
-{% block content %}
 
-    {% for Product in product_list %}
-        <div class="Product" id = "{{ Product.Name }}" style="background: url({{Product.photo.url}}); background-size: cover;">
-                 <h1 class="name"> {{Product.Name}} </h1>
-                <!-- <img src="{{Product.photo.url}}" width="30%" height="30%"> -->
-                 <p class="price"> {{Product.Price}} T</p>
+
+{% block content %}
+    {% for Type in type_list %}
+        <div class = "Menu" id = "{{Type.Name}}">
+            {% for object in Type.type_objects %}
+                <div class="Product" id = "{{ object.Name }}" style="background: url({{object.photo.url}}); background-size: cover;">
+                    <h1 class="name"> {{object.Name}} </h1>
+                    <p class="price"> {{object.Price}} T</p>
+                </div>
+            {% endfor %}
         </div>
     {% endfor %}
+   
 {% endblock content %}
