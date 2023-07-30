@@ -1,5 +1,4 @@
 {% load static %}
-
 <head>
     <title>TUMS Cafe</title>
     <link rel="stylesheet" href="{% static 'CSS/HomePage.css' %}">
@@ -17,6 +16,8 @@
         
         </form>
         </div>
+    
+
 <div id="whole">
     <div id="control">
         <img src="/media/media/signup-icon-13.png" onclick="signup()">
@@ -28,3 +29,6 @@
 </div>
  <script type="text/javascript" src="{% static 'JS/HomePage.js' %}"></script>   
 </body>
+<div id="login">
+{% include "registration/login.html" %}
+

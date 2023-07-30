@@ -118,8 +118,8 @@ body {
     border-radius: 20px;
     display: none;
     
-
 }
+
 #conteiner {
     z-index: 1;
     filter: blur(0px);
@@ -133,4 +133,17 @@ body {
     margin-top: 6px;
     border-radius: 10px;
 
+}
+
+
+#login {
+    width: 300px;
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 100px;
+    background-color: #D8D9DA;
+    border-radius: 20px;
+    display: none;
+    
 }
