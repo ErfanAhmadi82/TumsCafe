@@ -1,0 +1,11 @@
+#Cart {
+    background-color: #D8D9DA;
+    border-radius: 20px;
+    display: none;
+    width: 300px;
+    position: absolute;
+    z-index: 3;
+    left: 100px;
+    top: 100px;
+    padding: 5px;
+}

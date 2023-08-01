@@ -1,4 +1,5 @@
 {% load static %}
+{% include "Cart.html" %}
 <head>
     <title>TUMS Cafe</title>
     <link rel="stylesheet" href="{% static 'CSS/HomePage.css' %}">
@@ -6,29 +7,59 @@
 </head>
 
 <body>
-    <div id="signup">
-        <form action="/submit/user/" method="get">
-            <input type="text" id="username" name="username" placeholder="Enter your username"  required>
-            <input type="password" id="password" name="password" placeholder="Enter your password"  required>
-            <input type="email" id="email" name="email" placeholder="Enter your email"  required>
-            <input type="submit">
-        
-        
-        </form>
-        </div>
+   
     
 
 <div id="whole">
     <div id="control">
         <img src="/media/media/signup-icon-13.png" onclick="signup()">
+        <img src="/media/media/shopping-cart-icon.png" onclick="Cart()">
+
     </div>
  <div id="conteiner" onclick="getback()">
     {% block content %}
     {% endblock content %} 
  </div> 
 </div>
+<div id="user">
+  <h2>Sign up:</h2>
+<div id="signup">
+    <form action="/submit/user/" method="get">
+        <input type="text" id="username" name="username" placeholder="Enter your username"  required>
+        <input type="password" id="password" name="password" placeholder="Enter your password"  required>
+        <input type="email" id="email" name="email" placeholder="Enter your email"  required>
+        <input type="submit">
+    
+    
+    </form>
+    </div>
+    <h2>Sign in:</h2>
+<div id="login">
+
+  {% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+  {% else %}
+    <p>Please login to see this page.</p>
+  {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+ 
+
+<input type="text"  name="username" placeholder="Enter your Username">
+<input type="password"  name="password" placeholder="Enter your Password">
+<input type="submit" value="login">
+
+  <input type="hidden" name="next" value="{{ next }}">
+</form>
+</div>
+</div>
  <script type="text/javascript" src="{% static 'JS/HomePage.js' %}"></script>   
 </body>
-<div id="login">
-{% include "registration/login.html" %}
-

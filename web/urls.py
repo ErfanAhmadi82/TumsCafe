@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.Type_View.as_view(), name="Products"),
     path('submit/user/', views.NewUser, name="new_user"),
     path('accounts/', include("django.contrib.auth.urls")),
+    path('user/cart/', views.CreateCart, name="Cart"),
 ]

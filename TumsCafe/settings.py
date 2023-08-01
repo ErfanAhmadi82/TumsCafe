@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_REDIRECT_URL = 'Products'
+LOGIN_REDIRECT_URL = 'Cart'
 # Application definition
 
 INSTALLED_APPS = [

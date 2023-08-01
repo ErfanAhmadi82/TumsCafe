@@ -1,10 +1,34 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, DetailView, ListView
-from .models import Product, User, Type
+from .models import Product, User, Type, Cart
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import loader
+from django.conf import settings
+from datetime import datetime
+
+
 # Create your views here.
+@csrf_exempt
+def CreateCart(request):
+    if request.user.is_authenticated:
+        
+        if not Cart.objects.filter(user = request.user).exists():
+            Cart.objects.create(user = request.user)
+            context = {
+            "user" : "hello",
+        }
+        else:
+            context = {
+            "user" : "how are you",
+        }
+    else:
+        context = {
+            "user" : "Please login first"
+        }
+    template = loader.get_template("Cart.html")
+    return redirect("/")
+
 
 class HomePage(TemplateView):
     template_name = "HomePage.html"
@@ -36,3 +60,6 @@ def NewUser(request):
     }
     template = loader.get_template("User_Created.html")
     return HttpResponse(template.render(context, request))
+
+            
+                
