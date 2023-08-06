@@ -51,3 +51,4 @@ class CartItem(models.Model):
     def item_over_all_price(self):
         return self.product.Price * self.quantity
     
+

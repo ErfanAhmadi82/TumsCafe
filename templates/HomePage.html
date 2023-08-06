@@ -1,5 +1,4 @@
 {% load static %}
-{% include "Cart.html" %}
 <head>
     <title>TUMS Cafe</title>
     <link rel="stylesheet" href="{% static 'CSS/HomePage.css' %}">
@@ -20,6 +19,11 @@
     {% block content %}
     {% endblock content %} 
  </div> 
+</div>
+<div id="Cart">
+  {% for object in items %}
+  <h3>{{object}}</h3>
+  {% endfor %}
 </div>
 <div id="user">
   <h2>Sign up:</h2>

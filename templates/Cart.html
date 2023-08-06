@@ -4,7 +4,8 @@
 </head>
 <body>
 <div id="Cart">
-    <h1>hello World</h1>
-    {{user}}
+    {% for object in items %}
+    <h3>{{object}}</h3>
+    {% endfor %}
 </div>
 </body>

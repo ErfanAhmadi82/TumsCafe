@@ -16,10 +16,20 @@ body {
     transition: transform 0.3s  ;
 
 }
+.AddCart {
+    width: 80%;
+    height: 5vb;
+    margin-left: 10% ;
+    margin-top: 55%;
+    border-radius: 20px;
+    background-color: #61677A;
+    font-size: larger;
+    color: white;
+}
 .Product:hover {
     background-color: rgb(237, 10, 10);
     /* opacity: 75%; */
-    border-color: #61677A;
+    border-color: white;
     border-width: 2px;
     border-style:solid ;
     transform: scale(1.03);
@@ -32,15 +42,15 @@ body {
 
 
 .Product:hover .name{
-    color: #61677A;
+    color: rgb(198, 198, 198);
     margin-top: 5%;
-    -webkit-text-stroke: 0.3px white;
+    -webkit-text-stroke: 0.3px #61677A;
     
 }
 
 .Product:hover .price{
-    color: #61677A;
-    -webkit-text-stroke: 0.2px white;
+    color: rgb(198, 198, 198);
+    -webkit-text-stroke: 0.2px #61677A;
 
     
 }
@@ -162,4 +172,16 @@ body {
     position: absolute;
     z-index: 2;
     left: 100px;
+}
+
+#Cart {
+    background-color: #D8D9DA;
+    border-radius: 20px;
+    display: none;
+    width: 300px;
+    position: absolute;
+    z-index: 3;
+    left: 100px;
+    top: 100px;
+    padding: 5px;
 }

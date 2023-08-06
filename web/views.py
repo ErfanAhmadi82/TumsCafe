@@ -26,7 +26,6 @@ def CreateCart(request):
         context = {
             "user" : "Please login first"
         }
-    template = loader.get_template("Cart.html")
     return redirect("/")
 
 
@@ -40,10 +39,11 @@ def AddToCart(request):
 class Type_View(ListView):
     model = Type
     template_name = "Products.html"
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     print("CONTEXT:", context)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["items"] = CartItem.objects.filter(cart = Cart.objects.filter(user = self.request.user).first())
+        print("CONTEXT:", context)
+        return context
     
 class Products_View(ListView):
     model = Product
@@ -72,8 +72,19 @@ def NewUser(request):
     
 def order(request, Product_id):
     product = Product.objects.get(id=Product_id)
-    CartItem.objects.create(product=product, cart = Cart.objects.filter(user = request.user).first())
-
+    if not Product.objects.filter(id = Product_id).exists():
+        CartItem.objects.create(product=product, cart = Cart.objects.filter(user = request.user).first())
+    else:
+        num = CartItem.objects.filter(id=Product_id).first().quantity
+        CartItem.objects.filter(id=Product_id).update(quantity = num + 1)
     # deliver product #
 
     return redirect(reverse("Products"))
+
+def CartObjects(request):
+    items = CartItem.objects.filter(cart = Cart.objects.filter(user = request.user).first())
+    template = loader.get_template("Products.html")
+    context = {
+        "items": items
+    }
+    return HttpResponse(template.render(context, request))
