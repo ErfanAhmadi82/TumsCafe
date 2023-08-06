@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.urls import reverse
 # from . import views
 # Create your models here.
 
@@ -21,8 +22,11 @@ class Product(models.Model):
     photo = models.ImageField(upload_to="media", max_length=100, height_field=None, width_field=None)
     def __str__(self) -> str:
         return self.Name
+    def AddToCart(self, this_user):
+         CartItem.objects.create(product=self, cart = Cart.objects.filter(user = this_user))
     
-    
+    # def get_absolute_url(self):
+    #      return reverse("post_detail", kwargs={"pk": self.pk})
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -38,7 +42,7 @@ class Cart(models.Model):
               cart_objects_list.append(cart_item)
          return cart_objects_list
 class CartItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=1)
     # ItemOverAllPrice = item.product.Price * quantity
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)

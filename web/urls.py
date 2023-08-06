@@ -8,4 +8,6 @@ urlpatterns = [
     path('submit/user/', views.NewUser, name="new_user"),
     path('accounts/', include("django.contrib.auth.urls")),
     path('user/cart/', views.CreateCart, name="Cart"),
+    path("add/cart", views.AddToCart, name="addtocart"),
+    path('product/<int:Product_id>/', views.order, name="Product_detail")
 ]

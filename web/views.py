@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.views.generic import TemplateView, DetailView, ListView
-from .models import Product, User, Type, Cart
+from .models import Product, User, Type, Cart, CartItem
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import loader
@@ -33,8 +33,8 @@ def CreateCart(request):
 class HomePage(TemplateView):
     template_name = "HomePage.html"
 
-
- 
+def AddToCart(request):
+   Product.AddToCart(request.user)
     
 
 class Type_View(ListView):
@@ -62,4 +62,18 @@ def NewUser(request):
     return HttpResponse(template.render(context, request))
 
             
-                
+# class Product_detail(DetailView):
+#     model= Product
+#     template_name = "Products.html"
+#     def add(request, pk):
+#         print("hello world")
+#         Product.AddToCart(self=Product.objects.filter(pk = Product_detail.pk_url_kwarg), this_user=request.user)  
+#         return redirect("/")
+    
+def order(request, Product_id):
+    product = Product.objects.get(id=Product_id)
+    CartItem.objects.create(product=product, cart = Cart.objects.filter(user = request.user).first())
+
+    # deliver product #
+
+    return redirect(reverse("Products"))

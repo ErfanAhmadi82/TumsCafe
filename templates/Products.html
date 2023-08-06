@@ -13,8 +13,13 @@
             {% for object in Type.type_objects %}
                 <div class="Product" id = "{{ object.Name }}" style="background: url({{object.photo.url}}); background-size: cover;">
                     <h1 class="name"> {{object.Name}} </h1>
-                    <p class="price"> {{object.Price}} T</p>
+                    <p class="price"> {{object.Price}} T</p> 
+                    <form method="get" action="{% url 'Product_detail' object.id %}">                  
+                    <button>add to cart</button>
+                    </form> 
                 </div>
+
+
             {% endfor %}
         </div>
     {% endfor %}
