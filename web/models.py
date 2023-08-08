@@ -31,6 +31,7 @@ class Product(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=datetime.now)
+    active = models.BooleanField(default=True)
     def cart_price(self):
             price = 0
             for cart_item in CartItem.objects.filter(cart=self):
@@ -41,6 +42,7 @@ class Cart(models.Model):
          for cart_item in CartItem.objects.filter(cart=self):
               cart_objects_list.append(cart_item)
          return cart_objects_list
+    
 class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=1)
@@ -52,3 +54,22 @@ class CartItem(models.Model):
         return self.product.Price * self.quantity
     
 
+class Order(models.Model):
+     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+     status_list = (
+            ("Order Recived", "Order Recived"),
+            ("Getting Yor Order Ready", "Getting Yor Order Ready"), 
+            ("Done!", "Done!")
+     )
+     status = models.CharField(max_length=40,
+                               choices=status_list,
+                               default="Order Recived")
+     def price(self):
+          return self.cart.cart_price()
+     def cart_objects(self):
+         cart_objects_list = list()
+         for cart_item in CartItem.objects.filter(cart= self.cart):
+              cart_objects_list.append(cart_item)
+         return cart_objects_list
+     def __str__(self) -> str:
+          return self.cart.user.username

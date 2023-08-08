@@ -24,6 +24,9 @@
   {% for object in items %}
   <h3>{{object}}</h3>
   {% endfor %}
+  <form action="{% url 'NewOrder' %}">
+    <button>done!</button>
+  </form>
 </div>
 <div id="user">
   <h2>Sign up:</h2>

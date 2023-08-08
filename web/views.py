@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import TemplateView, DetailView, ListView
-from .models import Product, User, Type, Cart, CartItem
+from .models import Product, User, Type, Cart, CartItem, Order
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import loader
@@ -13,7 +13,7 @@ from datetime import datetime
 def CreateCart(request):
     if request.user.is_authenticated:
         
-        if not Cart.objects.filter(user = request.user).exists():
+        if not Cart.objects.filter(user = request.user, active = True).exists():
             Cart.objects.create(user = request.user)
             context = {
             "user" : "hello",
@@ -41,7 +41,7 @@ class Type_View(ListView):
     template_name = "Products.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["items"] = CartItem.objects.filter(cart = Cart.objects.filter(user = self.request.user).first())
+        context["items"] = CartItem.objects.filter(cart = Cart.objects.filter(user = self.request.user, active = True).first())
         print("CONTEXT:", context)
         return context
     
@@ -72,11 +72,14 @@ def NewUser(request):
     
 def order(request, Product_id):
     product = Product.objects.get(id=Product_id)
-    if not Product.objects.filter(id = Product_id).exists():
-        CartItem.objects.create(product=product, cart = Cart.objects.filter(user = request.user).first())
+    if not CartItem.objects.filter(product = Product.objects.filter(id = Product_id).first(), cart = Cart.objects.filter(user = request.user, active = True).first()).exists():
+        print("a")        
+        CartItem.objects.create(product=product, cart = Cart.objects.filter(user = request.user, active = True).first())
+
     else:
-        num = CartItem.objects.filter(id=Product_id).first().quantity
-        CartItem.objects.filter(id=Product_id).update(quantity = num + 1)
+        print("B")
+        num = CartItem.objects.filter(product = Product.objects.filter(id=Product_id).first(), cart = Cart.objects.filter(user = request.user, active = True).first()).first().quantity
+        CartItem.objects.filter(product = Product.objects.filter(id=Product_id).first(), cart = Cart.objects.filter(user = request.user, active = True).first()).update(quantity = num + 1)
     # deliver product #
 
     return redirect(reverse("Products"))
@@ -88,3 +91,9 @@ def CartObjects(request):
         "items": items
     }
     return HttpResponse(template.render(context, request))
+
+def NewOrder(request):
+    Cart.objects.filter(user = request.user, active = True).update(active = False)
+    Cart.objects.create(user = request.user)
+    Order.objects.create(cart = Cart.objects.filter(user = request.user, active = False).first())
+    return redirect("/")

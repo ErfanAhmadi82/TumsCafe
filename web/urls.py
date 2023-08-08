@@ -11,4 +11,5 @@ urlpatterns = [
     path("add/cart", views.AddToCart, name="addtocart"),
     path('product/<int:Product_id>/', views.order, name="Product_detail"),
     path("cart/", views.CartObjects, name="CartObjects"),
+    path("addorder", views.NewOrder, name="NewOrder")
 ]
