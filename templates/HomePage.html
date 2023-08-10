@@ -13,6 +13,8 @@
     <div id="control">
         <img src="/media/media/signup-icon-13.png" onclick="signup()">
         <img src="/media/media/shopping-cart-icon.png" onclick="Cart()">
+        <img src="/media/media/comments.png" onclick="Cart()">
+
 
     </div>
  <div id="conteiner" onclick="getback()">
@@ -20,7 +22,13 @@
     {% endblock content %} 
  </div> 
 </div>
+
+<div id="comments">
+  
+</div>
+
 <div id="Cart">
+  <h2 style="margin-left: 10px;">hello {{user}}!, Your Cart:</h2>
   {% for object in items %}
   <!-- <h3 style="display: inline; ;margin-bottom: 15px;">{{object}}</h3> -->
   <form action="{%url 'DeleteCartItem' object.id%}">
@@ -28,12 +36,15 @@
   <button class="delete"></button><br>
 </form>
   {% endfor %}
+  <h2 style="margin-right: 20px; float: right;">{{price}}T</h2>
   <form action="{% url 'NewOrder' %}">
     <button id="submit">Submit</button>
   </form>
 </div>
+
+
 <div id="user">
-  <h2>Sign up:</h2>
+  <h2 style="margin-left: 10px;">Sign up:</h2>
 <div id="signup">
     <form action="/submit/user/" method="get">
         <input type="text" id="username" name="username" placeholder="Enter your username"  required>
@@ -44,7 +55,7 @@
     
     </form>
     </div>
-    <h2>Sign in:</h2>
+    <h2 style="margin-left: 10px;">Sign in:</h2>
 <div id="login">
 
   {% if form.errors %}

@@ -42,12 +42,20 @@ class Type_View(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["items"] = CartItem.objects.filter(cart = Cart.objects.filter(user = self.request.user, active = True).first())
+        context["price"] = Cart.objects.get(user = self.request.user, active = True).cart_price()
         print("CONTEXT:", context)
         return context
     
 class Products_View(ListView):
     model = Product
     template_name = "Products.html"
+    # price = Cart.objects.get(user = request.user, active = True).cart_price()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["price"] = Cart.objects.get(user = self.request.user, active = True).cart_price()
+        print("CONTEXT:", context)
+        return context
+    
 
 @csrf_exempt
 def NewUser(request):
@@ -56,7 +64,8 @@ def NewUser(request):
     this_email = request.GET["email"]
     User.objects.create_user(username = this_user, password = this_password, email = this_email)
     context = {
-        "user": "done"
+        "user": "done",
+        "price": Cart.objects.get(user = self.request.user, active = True).cart_price()
     }
     template = loader.get_template("User_Created.html")
     return HttpResponse(template.render(context, request))
@@ -102,3 +111,6 @@ def DeleteCartItem(request, CartItem_id):
     CartItem.objects.get(id = CartItem_id).delete()
     return redirect(reverse("Products"))
 
+def GetPrice(request):
+    price = Cart.objects.get(user = request.user, active = True).cart_price()
+    
