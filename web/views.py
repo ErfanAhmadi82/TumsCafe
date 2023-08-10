@@ -97,3 +97,8 @@ def NewOrder(request):
     Cart.objects.create(user = request.user)
     Order.objects.create(cart = Cart.objects.filter(user = request.user, active = False).first())
     return redirect("/")
+
+def DeleteCartItem(request, CartItem_id):
+    CartItem.objects.get(id = CartItem_id).delete()
+    return redirect(reverse("Products"))
+

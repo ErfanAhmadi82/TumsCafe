@@ -185,3 +185,23 @@ body {
     top: 100px;
     padding: 5px;
 }
+
+.delete {
+   
+    margin-right: 10px;
+    margin-left: 70px;
+    display: inline;
+    float: right;
+    background-image: url("/media/media/Screen Shot 1402-05-19 at 7.09.06 PM.png");
+    background-size: cover;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+#submit {
+    width: 86%;
+    margin-left: 7%;
+    height: 2vw;
+    border-radius: 10px;
+}

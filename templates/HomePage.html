@@ -22,10 +22,14 @@
 </div>
 <div id="Cart">
   {% for object in items %}
-  <h3>{{object}}</h3>
+  <!-- <h3 style="display: inline; ;margin-bottom: 15px;">{{object}}</h3> -->
+  <form action="{%url 'DeleteCartItem' object.id%}">
+   <label for="delete" style="font-size: larger; margin-left: 10px;"><b>{{object}}</b></label>
+  <button class="delete"></button><br>
+</form>
   {% endfor %}
   <form action="{% url 'NewOrder' %}">
-    <button>done!</button>
+    <button id="submit">Submit</button>
   </form>
 </div>
 <div id="user">
