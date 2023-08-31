@@ -73,3 +73,10 @@ class Order(models.Model):
          return cart_objects_list
      def __str__(self) -> str:
           return self.cart.user.username
+
+class Comment(models.Model):
+     user = models.ForeignKey(User, on_delete=models.CASCADE)
+     comment = models.CharField(max_length=550)
+     show = models.BooleanField(default=False)
+     def __str__(self) -> str:
+          return self.user.username + " " + str(self.show)

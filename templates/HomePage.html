@@ -13,7 +13,7 @@
     <div id="control">
         <img src="/media/media/signup-icon-13.png" onclick="signup()">
         <img src="/media/media/shopping-cart-icon.png" onclick="Cart()">
-        <img src="/media/media/comments.png" onclick="Cart()">
+        <img src="/media/media/comments.png" onclick="Comments()">
 
 
     </div>
@@ -24,11 +24,20 @@
 </div>
 
 <div id="comments">
-  
+ {% for comment in comments %}
+<div class="comment">
+  <h2 style="margin-left: 10px;">{{comment.user}}:</h2>
+  <div class = commenttext>  
+  <h5 style="margin-left: 10px;">{{comment.comment}}
+  </h5>
+</div>
+</div>
+ {% endfor %}
 </div>
 
 <div id="Cart">
-  <h2 style="margin-left: 10px;">hello {{user}}!, Your Cart:</h2>
+  {% if user.is_authenticated %}
+  
   {% for object in items %}
   <!-- <h3 style="display: inline; ;margin-bottom: 15px;">{{object}}</h3> -->
   <form action="{%url 'DeleteCartItem' object.id%}">
@@ -40,6 +49,9 @@
   <form action="{% url 'NewOrder' %}">
     <button id="submit">Submit</button>
   </form>
+  {% else %}
+    <h2 style="margin-left: 10px;">please login first!</h2>
+  {% endif %}
 </div>
 
 
@@ -53,7 +65,7 @@
         <input type="submit">
     
     
-    </form>
+    
     </div>
     <h2 style="margin-left: 10px;">Sign in:</h2>
 <div id="login">
@@ -81,6 +93,12 @@
 
   <input type="hidden" name="next" value="{{ next }}">
 </form>
+</form>
+<h2 style="margin-left: 10px;">Log out:</h2>
+
+    <form action="/accounts/logout/">
+      <button id="logout" onclick="window.alert('Loged out successfully')">Log out</button>
+    </form>
 </div>
 </div>
  <script type="text/javascript" src="{% static 'JS/HomePage.js' %}"></script>   

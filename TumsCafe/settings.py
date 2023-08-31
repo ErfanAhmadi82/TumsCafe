@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = 'Cart'
 # Application definition
-
+LOGOUT_REDIRECT_URL = 'Products'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

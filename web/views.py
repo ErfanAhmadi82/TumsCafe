@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import TemplateView, DetailView, ListView
-from .models import Product, User, Type, Cart, CartItem, Order
+from .models import Product, User, Type, Cart, CartItem, Order, Comment
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import loader
@@ -29,8 +29,7 @@ def CreateCart(request):
     return redirect("/")
 
 
-class HomePage(TemplateView):
-    template_name = "HomePage.html"
+
 
 def AddToCart(request):
    Product.AddToCart(request.user)
@@ -41,8 +40,17 @@ class Type_View(ListView):
     template_name = "Products.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["items"] = CartItem.objects.filter(cart = Cart.objects.filter(user = self.request.user, active = True).first())
-        context["price"] = Cart.objects.get(user = self.request.user, active = True).cart_price()
+        CommentsList = Comment.objects.filter(show = True)
+        if len(CommentsList) < 11:
+            pass
+        else:
+            CommentsList = CommentsList[-10:]
+        context["comments"] = CommentsList
+        if self.request.user.is_authenticated:
+            context["items"] = CartItem.objects.filter(cart = Cart.objects.filter(user = self.request.user, active = True).first())
+            context["price"] = Cart.objects.get(user = self.request.user, active = True).cart_price()
+        else:
+            context["items"] = ["please login First"]
         print("CONTEXT:", context)
         return context
     
@@ -52,6 +60,12 @@ class Products_View(ListView):
     # price = Cart.objects.get(user = request.user, active = True).cart_price()
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        CommentsList = Comment.objects.filter(show = True)
+        if len(CommentsList) < 11:
+            pass
+        else:
+            CommentsList = CommentsList[-10:]
+        context["comments"] = CommentsList
         context["price"] = Cart.objects.get(user = self.request.user, active = True).cart_price()
         print("CONTEXT:", context)
         return context
@@ -63,9 +77,15 @@ def NewUser(request):
     this_password = request.GET["password"]
     this_email = request.GET["email"]
     User.objects.create_user(username = this_user, password = this_password, email = this_email)
+    CommentsList = Comment.objects.filter(show = True)
+    if len(CommentsList) < 11:
+            pass
+    else:
+            CommentsList = CommentsList[-10:]
     context = {
         "user": "done",
-        "price": Cart.objects.get(user = self.request.user, active = True).cart_price()
+        "comments" : CommentsList,
+        "price": Cart.objects.get(user = request.user, active = True).cart_price()
     }
     template = loader.get_template("User_Created.html")
     return HttpResponse(template.render(context, request))
@@ -111,6 +131,3 @@ def DeleteCartItem(request, CartItem_id):
     CartItem.objects.get(id = CartItem_id).delete()
     return redirect(reverse("Products"))
 
-def GetPrice(request):
-    price = Cart.objects.get(user = request.user, active = True).cart_price()
-    

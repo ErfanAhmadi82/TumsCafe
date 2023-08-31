@@ -207,5 +207,52 @@ body {
 }
 
 #comments {
+    width: 70%;
+    height: 20vw;
+    background-color: #D8D9DA;
+    border-radius: 20px;
+    z-index: 2;
+    position: absolute;
+    overflow: auto;
+    white-space: nowrap;
+    left: 100px;
+    top: 160px;
+    display: none;
+
+}
+
+.comment {
+    width: 25%;
+    background-color: #efefef;
+    height: 90%;
+    margin-left:1vw;
+    margin-top:1vw;
+    border-radius: 20px;
+    display: inline-block;
+
+}
+
+.commenttext {
+    background-color: #D8D9DA;
+    width: 80%;
+    margin-left: 10%;
+    height: 60%;
+    border-radius: 20px;
+}
+.commenttext h5{
+    margin-left: 5px;
+    margin-top: 33px;
+}
+
+#newcomment {
     
+}
+
+#logout {
+    width: 280px;
+    height: 35px;
+    margin-left: 10px;
+    margin-top: 6px;
+    border-radius: 10px;
+
 }
