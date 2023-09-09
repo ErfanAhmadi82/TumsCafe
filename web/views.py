@@ -82,10 +82,15 @@ def NewUser(request):
             pass
     else:
             CommentsList = CommentsList[-10:]
+    if request.user.is_authenticated:
+        Price = Cart.objects.get(user = request.user, active = True).cart_price()
+    else:
+        Price = False
+
     context = {
         "user": "done",
         "comments" : CommentsList,
-        "price": Cart.objects.get(user = request.user, active = True).cart_price()
+        "price": Price
     }
     template = loader.get_template("User_Created.html")
     return HttpResponse(template.render(context, request))
